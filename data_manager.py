@@ -11,9 +11,11 @@ def get_boards(cursor):
 
 
 @database_common.connection_handler
-def get_cards_for_board(cursor):
+def get_cards_for_board(cursor, id_):
     cursor.execute('''
-        SELECT * FROM card;
-    ''')
+        SELECT * FROM card
+        WHERE board_id = %(id_)s;
+    ''',     {"id_": id_})
     cards = cursor.fetchall()
+
     return cards

@@ -13,8 +13,8 @@ export let dataHandler = {
             method: 'GET',
             credentials: 'same-origin'
         })
-        .then(response => response.json())  // parse the response as JSON
-        .then(json_response => callback(json_response));  // Call the `callback` with the returned object
+            .then(response => response.json())  // parse the response as JSON
+            .then(json_response => callback(json_response));  // Call the `callback` with the returned object
     },
     _api_post: function (url, data, callback) {
         // it is not called from outside
@@ -22,14 +22,14 @@ export let dataHandler = {
     },
     init: function () {
     },
-    getBoards: function (callback) {
+    getBoards: function (callBack) {
         // the boards are retrieved and then the callback function is called with the boards
-
         // Here we use an arrow function to keep the value of 'this' on dataHandler.
         //    if we would use function(){...} here, the value of 'this' would change.
         this._api_get('/get-boards', (response) => {
             this._data = response;
-            callback(response);
+            callBack(response);
+
         });
     },
     getBoard: function (boardId, callback) {
@@ -41,7 +41,13 @@ export let dataHandler = {
     getStatus: function (statusId, callback) {
         // the status is retrieved and then the callback function is called with the status
     },
-    getCardsByBoardId: function (boardId, callback) {
+    getCardsByBoardId: function (boardId) {
+        this._api_get(`/get-cards/${boardId}`, (response) => {
+            this._data = response;
+            console.log(this._data);
+            return this._data
+
+        });
         // the cards are retrieved and then the callback function is called with the cards
     },
     getCard: function (cardId, callback) {
