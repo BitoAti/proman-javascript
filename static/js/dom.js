@@ -4,6 +4,7 @@ import {dataHandler} from "./data_handler.js";
 export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
+        addNewPublicBoard()
     },
     loadBoards: function () {
         fetch('/get-boards')
@@ -105,4 +106,21 @@ function createAddCardButton() {
     addButton.innerText = "Add card";
     return addButton
 
+}
+
+function addNewPublicBoard() {
+    document.getElementById('add-public-board').addEventListener('click', function () {
+        const modal = document.querySelector('.modal');
+        const closeButton = document.getElementById('closeButton');
+        modal.style.display = 'block';
+
+        closeButton.addEventListener('click', function () {
+            modal.style.display = 'none';
+        });
+        window.addEventListener('click', function (event) {
+            if (event.target === modal) {
+                modal.style.display = 'none';
+            }
+        });
+    })
 }

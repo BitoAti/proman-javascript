@@ -8,8 +8,24 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
+    """
+    This is a one-pager which shows all the boards and cards
+    """
+    if request.method == 'POST':
+        number_of_columns = 2
+        board_title = request.form.get('board-title')
+        public = request.form.get('public')
+        if public is None:
+            public = False
+        else:
+            public = True
+        data_manager.add_new_board(board_title, public)
+        new_board_id = data_manager.get_new_board_id()
+        for _ in range(number_of_columns):
+            data_manager.add_new_board_status(new_board_id)
+
     return render_template('index.html')
 
 
@@ -37,7 +53,7 @@ def get_cards_by_statuses(board_id: int, status_id: int):
     return data_manager.get_cards_by_statuses(board_id, status_id)
 
 
-@app.route('/', methods=['GET', 'POST'])
+@app.route('/register', methods=['GET', 'POST'])
 def register_user():
     if request.method == 'POST':
         username = request.form.get('username')

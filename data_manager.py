@@ -56,6 +56,17 @@ def get_user_registration_data(cursor, username, hashed):
                    {'username': username,
                     'hashed': hashed})
 
+@database_common.connection_handler
+def add_new_board(cursor, board_title, private):
+    cursor.execute('''
+    INSERT INTO board (title, public)
+    VALUES (%(board_title)s, %(private)s);
+    ''',
+                   {
+                       'board_title': board_title,
+                       'private': private
+                   })
+
 
 # Login
 @database_common.connection_handler
@@ -67,6 +78,13 @@ def get_user_login_data(cursor, username):
                    {'username': username})
     crypted_password = cursor.fetchone()
     return crypted_password
+@database_common.connection_handler
+def get_new_board_id(cursor):
+    cursor.execute('''
+    SELECT max(id) FROM board
+    ''')
+    board_id = cursor.fetchone()
+    return board_id['max']
 
 
 # get user id to registration
@@ -80,3 +98,13 @@ def get_user_id(cursor, username):
                    {'username': username})
     user_id = cursor.fetchone()
     return user_id['id']
+
+@database_common.connection_handler
+def add_new_board_status(cursor, board_id):
+    cursor.execute('''
+    INSERT INTO board_statuses (board_id)
+    VALUES (%(board_id)s);
+    ''',
+                   {
+                       'board_id': board_id
+                   })

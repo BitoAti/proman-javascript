@@ -1,6 +1,25 @@
 {% extends "navbar.html" %}
 
 {% block content %}
-        <h1>ProMan</h1>
-        <div class="board-container"></div>
+    <h1>ProMan</h1>
+        <div class="board-add-button-container">
+            <button class="board-add" id="add-public-board">Add new board</button>
+        </div>
+        <div id="modalPopup" class="modal">
+            <div class="modal-content">
+                <button type="button" id="closeButton" data-dismiss="modal" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+                <h3 class="modal-title">Add new board</h3>
+                <form method="post" action="/">
+                    <label for="board-title">Board Title</label><br>
+                    <input id="board-title" name="board-title" type="text"><br><br>
+                    <label for="board-public">Public</label>
+                    <input type="checkbox" id="board-public" name="public"><br><br>
+                    <button class="board-add" id="add-public-board" type="submit">Save</button>
+                </form>
+            </div>
+        </div>
+    <div class="board-container">
+    </div>
 {% endblock %}

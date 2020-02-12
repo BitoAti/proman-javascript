@@ -28,8 +28,7 @@ CREATE TABLE board
     id              serial NOT NULL,
     title           text,
     public          boolean NOT NULL,
-    user_id         integer,
-    visibility      boolean Not NULL
+    user_id         integer
 );
 
 DROP TABLE IF EXISTS public.card;
@@ -90,55 +89,25 @@ ALTER TABLE ONLY board_statuses
 ALTER TABLE board ALTER COLUMN public
 SET DEFAULT TRUE;
 
-
-ALTER TABLE board ALTER COLUMN visibility
-SET DEFAULT False;
+ALTER TABLE board_statuses ALTER COLUMN status_id
+SET DEFAULT 0;
 
 INSERT INTO board
 VALUES (1, 'Board 1', TRUE, NULL);
 INSERT INTO board
 VALUES (2, 'Board 2', TRUE, NULL);
-INSERT INTO board
-VALUES (3, 'Board 3', TRUE, NULL);
 
 INSERT INTO status
-VALUES (0, 'new');
+VALUES (0, 'choose name');
 INSERT INTO status
-VALUES (1, 'in progress');
+VALUES (1, 'new');
 INSERT INTO status
-VALUES (2, 'testing');
+VALUES (2, 'in progress');
 INSERT INTO status
-VALUES (3, 'done');
+VALUES (3, 'testing');
+INSERT INTO status
+VALUES (4, 'done');
 
-INSERT INTO card
-VALUES (1, 1, 'new card 1', 0, 0);
-INSERT INTO card
-VALUES (2, 1, 'new card 2', 0, 1);
-INSERT INTO card
-VALUES (3, 1, 'in progress card', 1, 0);
-INSERT INTO card
-VALUES (4, 1, 'planning', 2, 0);
-INSERT INTO card
-VALUES (5, 1, 'done card 1', 3, 0);
-INSERT INTO card
-VALUES (6, 1, 'done card 1', 3, 1);
-INSERT INTO card
-VALUES (7, 2, 'new card 1', 0, 0);
-INSERT INTO card
-VALUES (8, 2, 'new card 2', 0, 1);
-INSERT INTO card
-VALUES (9, 2, 'in progress card', 1, 0);
-INSERT INTO card
-VALUES (10, 2, 'planning', 2, 0);
-INSERT INTO card
-VALUES (11, 2, 'done card 1', 3, 0);
-INSERT INTO card
-VALUES (12, 2, 'done card 1', 3, 1);
-
-
-
-INSERT INTO board_statuses
-VALUES (1, 0);
 INSERT INTO board_statuses
 VALUES (1, 1);
 INSERT INTO board_statuses
@@ -146,7 +115,8 @@ VALUES (1, 2);
 INSERT INTO board_statuses
 VALUES (1, 3);
 INSERT INTO board_statuses
-VALUES (2, 0);
+VALUES (1, 4);
+
 INSERT INTO board_statuses
 VALUES (2, 1);
 INSERT INTO board_statuses
@@ -154,19 +124,33 @@ VALUES (2, 2);
 INSERT INTO board_statuses
 VALUES (2, 3);
 INSERT INTO board_statuses
-VALUES (3, 0);
-INSERT INTO board_statuses
-VALUES (3, 1);
+VALUES (2, 4);
 
+INSERT INTO card
+VALUES (1, 1, 'new card 1', 1, 0);
+INSERT INTO card
+VALUES (2, 1, 'new card 2', 1, 1);
+INSERT INTO card
+VALUES (3, 1, 'in progress card', 2, 0);
+INSERT INTO card
+VALUES (4, 1, 'planning', 3, 0);
+INSERT INTO card
+VALUES (5, 1, 'done card 1', 4, 0);
+INSERT INTO card
+VALUES (6, 1, 'done card 1', 4, 1);
+INSERT INTO card
+VALUES (7, 2, 'new card 1', 1, 0);
+INSERT INTO card
+VALUES (8, 2, 'new card 2', 1, 1);
+INSERT INTO card
+VALUES (9, 2, 'in progress card', 2, 0);
+INSERT INTO card
+VALUES (10, 2, 'planning', 3, 0);
+INSERT INTO card
+VALUES (11, 2, 'done card 1', 4, 0);
+INSERT INTO card
+VALUES (12, 2, 'done card 1', 4, 1);
 
-INSERT INTO board_statuses
-VALUES (2, 0);
-INSERT INTO board_statuses
-VALUES (2, 1);
-INSERT INTO board_statuses
-VALUES (2, 2);
-INSERT INTO board_statuses
-VALUES (2, 3);
 
 
 
