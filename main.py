@@ -9,6 +9,13 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route("/")
 def index():
+    """
+    This is a one-pager which shows all the boards and cards
+    """
+    # data_manager.alma("Done",3)
+    # print(data_manager.alma2(1))
+    # print(data_manager.get_cards_for_board(1))
+
     return render_template('index.html')
 
 
