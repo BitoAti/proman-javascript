@@ -22,24 +22,6 @@ def get_cards_for_board(cursor, id_):
 
 
 @database_common.connection_handler
-def alma(cursor, new, alma):
-    cursor.execute('''
-        
-        INSERT INTO board_statuses (board,status, status_id)
-        VALUES (1,%(new)s, %(alma)s);
-    ''', {"new": new, "alma":alma})
-
-@database_common.connection_handler
-def alma2(cursor, id_):
-    cursor.execute('''
-        SELECT status FROM board_statuses
-        WHERE board = %(id_)s;
-    ''', {"id_": id_})
-    cards = cursor.fetchall()
-
-    return cards
-
-@database_common.connection_handler
 def get_board_statuses(cursor, board_id):
     cursor.execute('''
         SELECT status_id,status.title FROM board_statuses
@@ -47,7 +29,7 @@ def get_board_statuses(cursor, board_id):
         WHERE board_id = %(board_id)s;
     
     
-    ''',    {"board_id": board_id})
+    ''', {"board_id": board_id})
     statuses = cursor.fetchall()
     return statuses
 
@@ -59,11 +41,12 @@ def get_cards_by_statuses(cursor, board_id, status_id):
         WHERE board_id = %(board_id)s and status_id = %(status_id)s;
 
 
-    ''', {"board_id": board_id, "status_id":status_id})
+    ''', {"board_id": board_id, "status_id": status_id})
     statuses = cursor.fetchall()
     return statuses
 
-#Registration
+
+# Registration
 @database_common.connection_handler
 def get_user_registration_data(cursor, username, hashed):
     cursor.execute('''
@@ -71,11 +54,10 @@ def get_user_registration_data(cursor, username, hashed):
         VALUES (%(username)s , %(hashed)s);
     ''',
                    {'username': username,
-                    'hashed': hashed,})
+                    'hashed': hashed})
 
 
-
-#Login
+# Login
 @database_common.connection_handler
 def get_user_login_data(cursor, username):
     cursor.execute('''
@@ -86,7 +68,8 @@ def get_user_login_data(cursor, username):
     crypted_password = cursor.fetchone()
     return crypted_password
 
-#get user id to registration
+
+# get user id to registration
 @database_common.connection_handler
 def get_user_id(cursor, username):
     cursor.execute('''
