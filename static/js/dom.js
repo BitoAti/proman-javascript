@@ -22,14 +22,15 @@ function createBoard(board) {
     section.setAttribute("class", "board");
     let container = document.querySelector(".board-container");
     let header = createHeader(board);
+    console.log(board.visibility);
     section.appendChild(header);
+    container.appendChild(section);
+
     fetch(`/get-board-statuses/${board.id}`)
         .then((response) => response.json())
         .then((statuses) => {
-
             let body = createBody(board, statuses);
             section.appendChild(body);
-            container.appendChild(section)
         });
 }
 
@@ -48,19 +49,16 @@ function createBody(board, statuses) {
         fetch(`/get-cards-by-statuses/${board.id}/${status.status_id}`)
             .then((response) => response.json())
             .then((cards) => {
-                console.log(cards);
                 for (let card of cards) {
                     let cardForTable = document.createElement("div");
                     cardForTable.setAttribute("class", "card");
                     cardForTable.innerText = card.title;
                     content.appendChild(cardForTable)
                 }
-
-
-            })
-
+            });
         column.appendChild(content);
-        columns.appendChild(column)
+        columns.appendChild(column);
+        columns.setAttribute("id", `${board.id}`)
 
     }
     return columns
@@ -72,7 +70,7 @@ function createBody(board, statuses) {
 function createHeader(board) {
     let span = document.createElement("span");
     span.setAttribute("class", "board-title");
-    let toggleButton = createTrashButton();
+    let toggleButton = createTrashButton(board.id);
     let addButton = createAddCardButton();
     let headerDiv = document.createElement("div");
     headerDiv.setAttribute("class", "board-header");
@@ -84,14 +82,21 @@ function createHeader(board) {
 }
 
 
-function createTrashButton() {
+function createTrashButton(id) {
     let i = document.createElement("i");
     i.setAttribute("class", "fas fa-chevron-down");
+
     let toggleButton = document.createElement("button");
     toggleButton.setAttribute("class", "board-toggle");
+    toggleButton.addEventListener("click", () => {
+
+        let body = document.getElementById(`${id}`);
+        body.classList.toggle("board-columns-close")
+
+
+    });
     toggleButton.appendChild(i);
     return toggleButton
-
 }
 
 function createAddCardButton() {

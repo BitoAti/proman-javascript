@@ -28,7 +28,8 @@ CREATE TABLE board
     id              serial NOT NULL,
     title           text,
     public          boolean NOT NULL,
-    user_id         integer
+    user_id         integer,
+    visibility      boolean Not NULL
 );
 
 DROP TABLE IF EXISTS public.card;
@@ -89,10 +90,16 @@ ALTER TABLE ONLY board_statuses
 ALTER TABLE board ALTER COLUMN public
 SET DEFAULT TRUE;
 
+
+ALTER TABLE board ALTER COLUMN visibility
+SET DEFAULT False;
+
 INSERT INTO board
 VALUES (1, 'Board 1', TRUE, NULL);
 INSERT INTO board
 VALUES (2, 'Board 2', TRUE, NULL);
+INSERT INTO board
+VALUES (3, 'Board 3', TRUE, NULL);
 
 INSERT INTO status
 VALUES (0, 'new');
@@ -138,6 +145,19 @@ INSERT INTO board_statuses
 VALUES (1, 2);
 INSERT INTO board_statuses
 VALUES (1, 3);
+INSERT INTO board_statuses
+VALUES (2, 0);
+INSERT INTO board_statuses
+VALUES (2, 1);
+INSERT INTO board_statuses
+VALUES (2, 2);
+INSERT INTO board_statuses
+VALUES (2, 3);
+INSERT INTO board_statuses
+VALUES (3, 0);
+INSERT INTO board_statuses
+VALUES (3, 1);
+
 
 
 

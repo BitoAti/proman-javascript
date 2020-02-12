@@ -64,5 +64,13 @@ def get_cards_by_statuses(cursor, board_id, status_id):
     return statuses
 
 
+# @database_common.connection_handler
+# def close_boards(cursor):
+#     cursor.execute('''
+#
+#
+#     ''')
+
+
 
 
