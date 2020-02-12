@@ -12,7 +12,6 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    print("alma")
     # data_manager.alma("Done",3)
     # print(data_manager.alma2(1))
     # print(data_manager.get_cards_for_board(1))
@@ -38,6 +37,17 @@ def get_cards_for_board(board_id: int):
     """
 
     return data_manager.get_cards_for_board(board_id)
+
+
+@app.route("/get-board-statuses/<int:board_id>")
+@json_response
+def get_board_statuses(board_id: int):
+    """
+    All cards that belongs to a board
+    :param board_id: id of the parent board
+    """
+    print("alma", data_manager.get_board_statuses(board_id))
+    return data_manager.get_board_statuses(board_id)
 
 
 def main():

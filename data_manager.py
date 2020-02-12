@@ -38,3 +38,19 @@ def alma2(cursor, id_):
     cards = cursor.fetchall()
 
     return cards
+
+@database_common.connection_handler
+def get_board_statuses(cursor, board_id):
+    cursor.execute('''
+        SELECT status_id,status.title FROM board_statuses
+        INNER JOIN status on status_id = status.id
+        WHERE board_id = %(board_id)s;
+    
+    
+    ''',    {"board_id": board_id})
+    statuses = cursor.fetchall()
+    return statuses
+
+
+
+

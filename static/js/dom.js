@@ -9,49 +9,44 @@ export let dom = {
         fetch('/get-boards')
             .then((response) => response.json())
             .then((boards) => {
-                    getCards(boards);
+                for (let board of boards) {
+                    createBoard(board);
+                }
                 }
             )
     }
 };
 
-function getCards(boards) {
-    for (let board of boards) {
-        fetch(`/get-cards/${board.id}`)
-            .then((response) => response.json())
-            .then((cards) => {
-                createBoard(board, cards)
-            });
-    }
-
-
-}
-
-function createBoard(board, cards) {
+function createBoard(board) {
     let section = document.createElement("section");
     section.setAttribute("class", "board");
     let container = document.querySelector(".board-container");
     let header = createHeader(board);
     section.appendChild(header);
-    let body = createBody(board, cards, ["New", "In progress", "Testing", "Done"]);
-    section.appendChild(body);
-    container.appendChild(section)
+    fetch(`/get-board-statuses/${board.id}`)
+        .then((response) => response.json())
+        .then((statuses) => {
+            console.log(statuses);
+
+            let body = createBody(board,statuses);
+            section.appendChild(body);
+            container.appendChild(section)
+        });
 
 
 }
 
-function createBody(board, cards, statuses) {
+function createBody(board, statuses) {
     let columns = document.createElement("div");
     columns.setAttribute("class", "board-columns");
     for (let status of statuses) {
         let column = document.createElement("div");
         column.setAttribute("class", "board-column");
-
         let title = document.createElement("div");
         title.setAttribute("class", "board-column-title");
         let content = document.createElement("div");
         content.setAttribute("class", "board-column-content");
-        title.innerText = status;
+        title.innerText = status.title;
         column.appendChild(title);
         for (let i = 0; i < 4; i++) {
             //Annyiszor ahany kartya van az adott kerdeshez a statussal
@@ -68,14 +63,6 @@ function createBody(board, cards, statuses) {
 
 }
 
-const headers = function (title) {
-    return `
-            <div class="board-header"><span class="board-title">${title}</span>
-                <button class="board-add">Add Card</button>
-                <button class="board-toggle"><i class="fas fa-chevron-down"></i></button>
-            </div> 
-    `
-};
 
 function createHeader(board) {
     let span = document.createElement("span");

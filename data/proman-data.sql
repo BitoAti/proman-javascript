@@ -16,6 +16,11 @@ ALTER TABLE IF EXISTS ONLY public.card
     DROP CONSTRAINT IF EXISTS pk_status_id CASCADE;
 
 
+ALTER TABLE IF EXISTS ONLY public.board_statuses
+    DROP CONSTRAINT IF EXISTS fk_board_id CASCADE;
+ALTER TABLE IF EXISTS ONLY public.board_statuses
+    DROP CONSTRAINT IF EXISTS fk_status_id CASCADE;
+
 DROP TABLE IF EXISTS public.board;
 DROP SEQUENCE IF EXISTS public.board_id_seq;
 CREATE TABLE board
@@ -35,6 +40,13 @@ CREATE TABLE card
     title             text,
     status_id         integer,
     card_order        integer
+);
+
+DROP TABLE IF EXISTS public.board_statuses;
+CREATE TABLE board_statuses
+(
+    board_id          integer,
+    status_id         integer
 );
 
 DROP TABLE IF EXISTS public.status;
@@ -69,6 +81,10 @@ ALTER TABLE ONLY card
     ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES board (id) ON DELETE CASCADE;
 ALTER TABLE ONLY card
     ADD CONSTRAINT fk_status_id FOREIGN KEY (status_id) REFERENCES status (id) ON DELETE CASCADE;
+ALTER TABLE ONLY board_statuses
+    ADD CONSTRAINT fk_status_id FOREIGN KEY (status_id) REFERENCES status (id) ON DELETE CASCADE;
+ALTER TABLE ONLY board_statuses
+    ADD CONSTRAINT fk_board_id FOREIGN KEY (board_id) REFERENCES board (id) ON DELETE CASCADE;
 
 ALTER TABLE board ALTER COLUMN public
 SET DEFAULT TRUE;
@@ -111,3 +127,18 @@ INSERT INTO card
 VALUES (11, 2, 'done card 1', 3, 0);
 INSERT INTO card
 VALUES (12, 2, 'done card 1', 3, 1);
+
+
+
+INSERT INTO board_statuses
+VALUES (1, 0);
+INSERT INTO board_statuses
+VALUES (1, 1);
+INSERT INTO board_statuses
+VALUES (1, 2);
+INSERT INTO board_statuses
+VALUES (1, 3);
+
+
+
+
