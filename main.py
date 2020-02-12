@@ -9,13 +9,6 @@ app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 @app.route("/")
 def index():
-    """
-    This is a one-pager which shows all the boards and cards
-    """
-    # data_manager.alma("Done",3)
-    # print(data_manager.alma2(1))
-    # print(data_manager.get_cards_for_board(1))
-
     return render_template('index.html')
 
 
@@ -75,8 +68,6 @@ def logout():
 
 def main():
     app.run(debug=True)
-
-    # Serving the favicon
     with app.app_context():
 
         app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
