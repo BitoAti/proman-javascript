@@ -1,4 +1,4 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from util import json_response
 import data_manager
 
@@ -7,14 +7,23 @@ import data_handler
 app = Flask(__name__)
 
 
-@app.route("/")
+@app.route("/", methods=['GET', 'POST'])
 def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    # data_manager.alma("Done",3)
-    # print(data_manager.alma2(1))
-    # print(data_manager.get_cards_for_board(1))
+    if request.method == 'POST':
+        number_of_columns = 2
+        board_title = request.form.get('board-title')
+        public = request.form.get('public')
+        if public is None:
+            public = False
+        else:
+            public = True
+        data_manager.add_new_board(board_title, public)
+        new_board_id = data_manager.get_new_board_id()
+        for _ in range(number_of_columns):
+            data_manager.add_new_board_status(new_board_id)
 
     return render_template('index.html')
 
@@ -53,7 +62,6 @@ def get_board_statuses(board_id: int):
 @json_response
 def get_cards_by_statuses(board_id: int, status_id: int):
     barack = data_manager.get_cards_by_statuses(board_id, status_id)
-    print(barack)
     return barack
 
 
@@ -62,11 +70,7 @@ def main():
 
     # Serving the favicon
     with app.app_context():
-
         app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
-
-
-
 
 
 if __name__ == '__main__':

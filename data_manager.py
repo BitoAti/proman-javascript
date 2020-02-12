@@ -64,5 +64,33 @@ def get_cards_by_statuses(cursor, board_id, status_id):
     return statuses
 
 
+@database_common.connection_handler
+def add_new_board(cursor, board_title, private):
+    cursor.execute('''
+    INSERT INTO board (title, public)
+    VALUES (%(board_title)s, %(private)s);
+    ''',
+                   {
+                       'board_title': board_title,
+                       'private': private
+                   })
 
 
+@database_common.connection_handler
+def get_new_board_id(cursor):
+    cursor.execute('''
+    SELECT max(id) FROM board
+    ''')
+    board_id = cursor.fetchone()
+    return board_id['max']
+
+
+@database_common.connection_handler
+def add_new_board_status(cursor, board_id):
+    cursor.execute('''
+    INSERT INTO board_statuses (board_id)
+    VALUES (%(board_id)s);
+    ''',
+                   {
+                       'board_id': board_id
+                   })

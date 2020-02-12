@@ -1,22 +1,43 @@
 <!DOCTYPE html>
 <html lang="en">
-    <head>
-        <meta charset="UTF-8">
-        <meta name="viewport" content="width=device-width, initial-scale=1.0">
-        <meta http-equiv="X-UA-Compatible" content="ie=edge">
-        <title>ProMan</title>
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>ProMan</title>
 
-        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
-        <link rel="icon" type="image/png" sizes="32x32" href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
-        <link rel="icon" type="image/png" sizes="96x96" href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
-        <link rel="icon" type="image/png" sizes="16x16" href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+    <link rel="icon" type="image/png" sizes="32x32"
+          href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+    <link rel="icon" type="image/png" sizes="96x96"
+          href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+    <link rel="icon" type="image/png" sizes="16x16"
+          href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
 
-        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/design.css') }}">
+    <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/design.css') }}">
 
-        <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
-    </head>
-    <body>
-        <h1>ProMan</h1>
-        <div class="board-container"></div>
-    </body>
+    <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+</head>
+<body>
+<h1>ProMan</h1>
+<div class="board-add-button-container">
+    <button class="board-add" id="add-public-board">Add new board</button>
+</div>
+<div id="modalPopup" class="modal">
+    <div class="modal-content">
+            <button type="button" class="close" id="closeButton" data-dismiss="modal" aria-label="Close">
+                <span aria-hidden="true">&times;</span>
+            </button>
+            <h3 class="modal-title">Add new board</h3>
+            <form method="post" action="/">
+                <label for="board-title">Board Title</label><br>
+                <input id="board-title" name="board-title" type="text"><br><br>
+                <label for="board-public">Public</label>
+                <input type="checkbox" id="board-public" name="public"><br><br>
+                <button class="board-add" id="add-public-board" type="submit">Save</button>
+            </form>
+    </div>
+</div>
+<div class="board-container"></div>
+</body>
 </html>
