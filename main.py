@@ -12,7 +12,10 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    print(data_manager.get_cards_for_board(1))
+    print("alma")
+    # data_manager.alma("Done",3)
+    # print(data_manager.alma2(1))
+    # print(data_manager.get_cards_for_board(1))
 
     return render_template('index.html')
 
