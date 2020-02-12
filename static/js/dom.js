@@ -70,11 +70,17 @@ function createBody(board, statuses) {
 function createHeader(board) {
     let span = document.createElement("span");
     span.setAttribute("class", "board-title");
+
     let toggleButton = createTrashButton(board.id);
     let addButton = createAddCardButton();
     let headerDiv = document.createElement("div");
     headerDiv.setAttribute("class", "board-header");
     span.innerHTML = board.title;
+    span.addEventListener("click", () => {
+        let newTitle = prompt("type new title");
+        span.innerHTML = newTitle
+
+    });
     headerDiv.appendChild(span);
     headerDiv.appendChild(toggleButton);
     headerDiv.appendChild(addButton);

@@ -73,4 +73,12 @@ def get_cards_by_statuses(cursor, board_id, status_id):
 
 
 
-
+@database_common.connection_handler
+def update_title(cursor, newtitle, boardid):
+    cursor.execute('''UPDATE board SET title = %(newtitle)s
+    WHERE id = %(boardid)s    
+    
+    ''', {
+        "newtitle": newtitle,
+        "boardid": boardid
+    })
