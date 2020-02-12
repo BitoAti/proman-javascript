@@ -7,6 +7,7 @@ app = Flask(__name__)
 
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
+
 @app.route("/")
 def index():
     return render_template('index.html')
@@ -61,19 +62,17 @@ def login_user():
         session['id'] = data_manager.get_user_id(username)
     return redirect('/')
 
+
 @app.route('/logout', methods=['POST'])
 def logout():
     session.clear()
     return redirect('/')
 
+
 def main():
     app.run(debug=True)
     with app.app_context():
-
         app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
-
-
-
 
 
 if __name__ == '__main__':
