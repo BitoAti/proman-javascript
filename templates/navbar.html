@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <head>
+        <meta charset="UTF-8">
+        <meta name="viewport" content="width=device-width, initial-scale=1.0">
+        <meta http-equiv="X-UA-Compatible" content="ie=edge">
+        <title>ProMan</title>
+
+        <link rel="shortcut icon" href="{{ url_for('static', filename='favicon/favicon.ico') }}">
+        <link rel="icon" type="image/png" sizes="32x32"
+              href="{{ url_for('static', filename='favicon/favicon-32x32.png') }}">
+        <link rel="icon" type="image/png" sizes="96x96"
+              href="{{ url_for('static', filename='favicon/favicon-96x96.png') }}">
+        <link rel="icon" type="image/png" sizes="16x16"
+              href="{{ url_for('static', filename='favicon/favicon-16x16.png') }}">
+
+        <link rel="stylesheet" type="text/css" href="{{ url_for('static', filename='css/design.css') }}">
+
+        <script type="module" src="{{ url_for('static', filename='js/main.js') }}" defer></script>
+    </head>
+</head>
+<body>
+<nav class="navbar navbar-light bg-light">
+    {% if session['username'] %}
+        <p>Hello, {{ session['username'] }}</p>
+        <form method="post" action="/logout" align="left">
+            <button type="submit">Logout</button>
+        </form>
+    {% else %}
+        <div align="right">
+            <form method="post" action="/login">
+                <input type="text" name="username" min="3" placeholder="username" required><br>
+                <input type="password" name="password" min="3" placeholder="password" required><br>
+                <button type="submit">Login</button>
+            </form>
+        </div>
+        <div align="center">
+            <form method="post">
+                <input type="text" name="username" min="3" placeholder="username" required><br>
+                <input type="password" name="password" min="3" placeholder="password" required><br>
+                <button type="submit">Register</button>
+            </form>
+        </div>
+
+    {% endif %}
+
+
+</nav>
+{% block content %} {% endblock %}
+</body>
+</html>

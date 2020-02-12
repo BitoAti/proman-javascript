@@ -64,5 +64,35 @@ def get_cards_by_statuses(cursor, board_id, status_id):
     return statuses
 
 
+# Registration
+@database_common.connection_handler
+def get_user_registration_data(cursor, username, hashed):
+    cursor.execute('''
+        INSERT INTO users (username, password)
+        VALUES (%(username)s , %(hashed)s);
+    ''',
+                   {'username': username,
+                    'hashed': hashed})
 
+#Login
+@database_common.connection_handler
+def get_user_login_data(cursor, username):
+    cursor.execute('''
+           SELECT password FROM users
+           WHERE username LIKE %(username)s
+       ''',
+                   {'username': username})
+    crypted_password = cursor.fetchone()
+    return crypted_password
 
+#get user id to registration
+@database_common.connection_handler
+def get_user_id(cursor, username):
+    cursor.execute('''
+        SELECT id FROM users
+        WHERE username = %(username)s;
+
+    ''',
+                   {'username': username})
+    user_id = cursor.fetchone()
+    return user_id['id']

@@ -23,13 +23,13 @@ function createBoard(board) {
     let container = document.querySelector(".board-container");
     let header = createHeader(board);
     section.appendChild(header);
+    container.appendChild(section);
     fetch(`/get-board-statuses/${board.id}`)
         .then((response) => response.json())
         .then((statuses) => {
 
             let body = createBody(board, statuses);
             section.appendChild(body);
-            container.appendChild(section)
         });
 }
 

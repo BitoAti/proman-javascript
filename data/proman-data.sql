@@ -139,6 +139,16 @@ VALUES (1, 2);
 INSERT INTO board_statuses
 VALUES (1, 3);
 
+INSERT INTO board_statuses
+VALUES (2, 0);
+INSERT INTO board_statuses
+VALUES (2, 1);
+INSERT INTO board_statuses
+VALUES (2, 2);
+INSERT INTO board_statuses
+VALUES (2, 3);
+
+
 
 
 
