@@ -52,5 +52,17 @@ def get_board_statuses(cursor, board_id):
     return statuses
 
 
+@database_common.connection_handler
+def get_cards_by_statuses(cursor, board_id, status_id):
+    cursor.execute('''
+        SELECT * FROM card
+        WHERE board_id = %(board_id)s and status_id = %(status_id)s;
+
+
+    ''', {"board_id": board_id, "status_id":status_id})
+    statuses = cursor.fetchall()
+    return statuses
+
+
 
 

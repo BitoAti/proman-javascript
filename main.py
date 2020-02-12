@@ -46,8 +46,15 @@ def get_board_statuses(board_id: int):
     All cards that belongs to a board
     :param board_id: id of the parent board
     """
-    print("alma", data_manager.get_board_statuses(board_id))
     return data_manager.get_board_statuses(board_id)
+
+
+@app.route("/get-cards-by-statuses/<int:board_id>/<int:status_id>")
+@json_response
+def get_cards_by_statuses(board_id: int, status_id: int):
+    barack = data_manager.get_cards_by_statuses(board_id, status_id)
+    print(barack)
+    return barack
 
 
 def main():

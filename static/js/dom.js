@@ -9,9 +9,9 @@ export let dom = {
         fetch('/get-boards')
             .then((response) => response.json())
             .then((boards) => {
-                for (let board of boards) {
-                    createBoard(board);
-                }
+                    for (let board of boards) {
+                        createBoard(board);
+                    }
                 }
             )
     }
@@ -26,14 +26,11 @@ function createBoard(board) {
     fetch(`/get-board-statuses/${board.id}`)
         .then((response) => response.json())
         .then((statuses) => {
-            console.log(statuses);
 
-            let body = createBody(board,statuses);
+            let body = createBody(board, statuses);
             section.appendChild(body);
             container.appendChild(section)
         });
-
-
 }
 
 function createBody(board, statuses) {
@@ -48,12 +45,20 @@ function createBody(board, statuses) {
         content.setAttribute("class", "board-column-content");
         title.innerText = status.title;
         column.appendChild(title);
-        for (let i = 0; i < 4; i++) {
-            //Annyiszor ahany kartya van az adott kerdeshez a statussal
-            let card = document.createElement("div");
-            card.setAttribute("class", "card")
-            content.appendChild(card)
-        }
+        fetch(`/get-cards-by-statuses/${board.id}/${status.status_id}`)
+            .then((response) => response.json())
+            .then((cards) => {
+                console.log(cards);
+                for (let card of cards) {
+                    let cardForTable = document.createElement("div");
+                    cardForTable.setAttribute("class", "card");
+                    cardForTable.innerText = card.title;
+                    content.appendChild(cardForTable)
+                }
+
+
+            })
+
         column.appendChild(content);
         columns.appendChild(column)
 
