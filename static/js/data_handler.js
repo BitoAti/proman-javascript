@@ -60,4 +60,9 @@ export let dataHandler = {
         // creates new card, saves it and calls the callback function with its data
     }
     // here comes more features
+    renameBoard: function (newTitle) {
+        this._api_get('/rename-board', newTitle, callback)
+
+
+    }
 };

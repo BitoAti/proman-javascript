@@ -80,6 +80,7 @@ function createHeader(board) {
         let newTitle = prompt("type new title");
         span.innerHTML = newTitle
 
+
     });
     headerDiv.appendChild(span);
     headerDiv.appendChild(toggleButton);

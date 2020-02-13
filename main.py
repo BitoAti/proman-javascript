@@ -1,8 +1,9 @@
-from flask import Flask, render_template, url_for
+from flask import Flask, render_template, url_for, request
 from util import json_response
 import data_manager
 
-import data_handler
+
+
 
 app = Flask(__name__)
 
@@ -16,6 +17,7 @@ def index():
     # data_manager.alma("Done",3)
     # print(data_manager.alma2(1))
     # print(data_manager.get_cards_for_board(1))
+
 
     return render_template('index.html')
 
@@ -56,6 +58,15 @@ def get_cards_by_statuses(board_id: int, status_id: int):
     barack = data_manager.get_cards_by_statuses(board_id, status_id)
     print(barack)
     return barack
+
+@app.route('/rename-board')
+@json_response
+def rename_board():
+    new_title = request.get_json()
+
+    return {}
+
+
 
 
 def main():
