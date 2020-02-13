@@ -4,7 +4,8 @@ import database_common
 @database_common.connection_handler
 def get_boards(cursor):
     cursor.execute('''
-        SELECT * FROM board;
+        SELECT * FROM board
+        ORDER BY id DESC;
     ''')
     boards = cursor.fetchall()
     return boards
@@ -19,6 +20,7 @@ def get_cards_for_board(cursor, id_):
     cards = cursor.fetchall()
 
     return cards
+
 
 
 @database_common.connection_handler
@@ -87,6 +89,15 @@ def get_new_board_id(cursor):
     return board_id['max']
 
 
+@database_common.connection_handler
+def update_title(cursor, retitle, boardid):
+    cursor.execute('''UPDATE board SET title = %(retitle)s
+    WHERE id = %(boardid)s    
+    
+    ''', {
+        "retitle": retitle,
+        "boardid": boardid
+    })
 # get user id to registration
 @database_common.connection_handler
 def get_user_id(cursor, username):

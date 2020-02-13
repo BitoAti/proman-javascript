@@ -71,11 +71,32 @@ function createBody(board, statuses) {
 function createHeader(board) {
     let span = document.createElement("span");
     span.setAttribute("class", "board-title");
+
     let toggleButton = createTrashButton(board.id);
     let addButton = createAddCardButton();
     let headerDiv = document.createElement("div");
     headerDiv.setAttribute("class", "board-header");
     span.innerHTML = board.title;
+    span.addEventListener("click", (event) => {
+        event.preventDefault();
+        let reTitle = prompt("type new title");
+        console.log(reTitle)
+        span.innerHTML = reTitle;
+        let dictTitle = {
+            "id" : board.id,
+            "title" : reTitle
+        };
+
+        dataHandler.renameBoard(dictTitle, function() {
+
+            }
+
+
+        );
+
+
+
+    });
     headerDiv.appendChild(span);
     headerDiv.appendChild(toggleButton);
     headerDiv.appendChild(addButton);
