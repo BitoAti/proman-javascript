@@ -8,7 +8,7 @@ app = Flask(__name__)
 app.secret_key = b'_5#y2L"F4Q8z\n\xec]/'
 
 
-@app.route("/", methods=['GET', 'POST'])
+@app.route("/")
 def index():
     """
     This is a one-pager which shows all the boards and cards
@@ -41,16 +41,16 @@ def get_cards_by_statuses(board_id: int, status_id: int):
     return data_manager.get_cards_by_statuses(board_id, status_id)
 
 
-@app.route('/register')
+@app.route('/register', methods=["POST"])
 def register_user():
-    # if request.method == 'POST':
-    #     username = request.form.get('username')
-    #     password = request.form.get('password')
-    #     hashed = hashing.hash_password(password)
-    #     data_manager.get_user_registration_data(username, hashed)
-    #     session['username'] = request.form['username']
-    #     session['id'] = data_manager.get_user_id(username)
-    #     return redirect('/')
+    if request.method == 'POST':
+        username = request.form.get('username')
+        password = request.form.get('password')
+        hashed = hashing.hash_password(password)
+        data_manager.get_user_registration_data(username, hashed)
+        session['username'] = request.form['username']
+        session['id'] = data_manager.get_user_id(username)
+        return redirect('/')
     return render_template('index.html')
 
 
@@ -79,10 +79,10 @@ def new_board():
     board_title = request.get_json()
     number_of_columns = 2
     print(board_title)
-    # data_manager.add_new_board(board_title)
-    # new_board_id = data_manager.get_new_board_id()
-    # for _ in range(number_of_columns):
-    #     data_manager.add_new_board_status(new_board_id)
+    data_manager.add_new_board(board_title)
+    new_board_id = data_manager.get_new_board_id()
+    for _ in range(number_of_columns):
+        data_manager.add_new_board_status(new_board_id)
     return {}
 
 

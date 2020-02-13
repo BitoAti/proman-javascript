@@ -57,14 +57,14 @@ def get_user_registration_data(cursor, username, hashed):
                     'hashed': hashed})
 
 @database_common.connection_handler
-def add_new_board(cursor, board_title, private):
+def add_new_board(cursor, board_title):
     cursor.execute('''
-    INSERT INTO board (title, public)
-    VALUES (%(board_title)s, %(private)s);
+    INSERT INTO board (title)
+    VALUES (%(board_title)s);
     ''',
                    {
                        'board_title': board_title,
-                       'private': private
+
                    })
 
 

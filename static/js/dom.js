@@ -110,10 +110,7 @@ function createAddCardButton() {
 
 function addNewPublicBoard() {
     document.getElementById('add-public-board').addEventListener('click', function () {
-
         const modal = document.querySelector('.modal');
-
-
         const closeButton = document.getElementById('closeButton');
         modal.style.display = 'block';
         closeButton.addEventListener('click', function () {
@@ -123,7 +120,6 @@ function addNewPublicBoard() {
             if (event.target === modal) {
                 modal.style.display = 'none';
             }
-            let doc = document.querySelectorAll("#board-title").value;
 
 
         })
@@ -132,20 +128,42 @@ function addNewPublicBoard() {
 
 }
 
-
 function setSaveButton() {
     let sButton = document.getElementById("save-public-board");
 
     sButton.addEventListener("click", () => {
+        // event.preventDefault();
         let newTitle = document.getElementById("new-board-title").value;
-        let pub= document.getElementById("check-board-public");
+        // let pub = document.getElementById("check-board-public");
+
+        // let object = { "title": newTitle, "public"= }
         dataHandler.newBoard(newTitle, function () {
-
-
+            // newTable(newTitle)
+            // dom.loadBoards()
         })
     })
 
 }
 
-
-
+// function newTable(title) {
+//     let container = document.querySelector(".board-container");
+//     let section = document.createElement("section");
+//     section.setAttribute("class", "board");
+//     section.appendChild(createNewHeader(title));
+//     container.appendChild(section)
+// }
+//
+// function createNewHeader(title) {
+//     let span = document.createElement("span");
+//     span.setAttribute("class", "board-title");
+//     let toggleButton = createTrashButton(board.id);
+//     let addButton = createAddCardButton();
+//     let headerDiv = document.createElement("div");
+//     headerDiv.setAttribute("class", "board-header");
+//     span.innerHTML = title;
+//     headerDiv.appendChild(span);
+//     headerDiv.appendChild(toggleButton);
+//     headerDiv.appendChild(addButton);
+//     console.log(headerDiv);
+//     return headerDiv
+// }
