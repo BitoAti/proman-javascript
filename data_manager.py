@@ -4,7 +4,8 @@ import database_common
 @database_common.connection_handler
 def get_boards(cursor):
     cursor.execute('''
-        SELECT * FROM board;
+        SELECT * FROM board
+        ORDER BY id DESC;
     ''')
     boards = cursor.fetchall()
     return boards
@@ -74,11 +75,11 @@ def get_cards_by_statuses(cursor, board_id, status_id):
 
 
 @database_common.connection_handler
-def update_title(cursor, newtitle, boardid):
-    cursor.execute('''UPDATE board SET title = %(newtitle)s
+def update_title(cursor, retitle, boardid):
+    cursor.execute('''UPDATE board SET title = %(retitle)s
     WHERE id = %(boardid)s    
     
     ''', {
-        "newtitle": newtitle,
+        "retitle": retitle,
         "boardid": boardid
     })

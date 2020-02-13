@@ -76,9 +76,23 @@ function createHeader(board) {
     let headerDiv = document.createElement("div");
     headerDiv.setAttribute("class", "board-header");
     span.innerHTML = board.title;
-    span.addEventListener("click", () => {
-        let newTitle = prompt("type new title");
-        span.innerHTML = newTitle
+    span.addEventListener("click", (event) => {
+        event.preventDefault();
+        let reTitle = prompt("type new title");
+        console.log(reTitle)
+        span.innerHTML = reTitle;
+        let dictTitle = {
+            "id" : board.id,
+            "title" : reTitle
+        };
+
+        dataHandler.renameBoard(dictTitle, function() {
+
+            }
+
+
+        );
+
 
 
     });

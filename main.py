@@ -55,14 +55,18 @@ def get_board_statuses(board_id: int):
 @app.route("/get-cards-by-statuses/<int:board_id>/<int:status_id>")
 @json_response
 def get_cards_by_statuses(board_id: int, status_id: int):
-    barack = data_manager.get_cards_by_statuses(board_id, status_id)
-    print(barack)
+    barack= data_manager.get_cards_by_statuses(board_id, status_id)
+
     return barack
 
-@app.route('/rename-board')
+
+@app.route('/rename-board', methods=['POST'])
 @json_response
 def rename_board():
+
     new_title = request.get_json()
+    print(new_title)
+    data_manager.update_title(new_title['title'], new_title['id'])
 
     return {}
 
