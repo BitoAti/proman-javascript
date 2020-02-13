@@ -81,5 +81,12 @@ export let dataHandler = {
         callback()
 
 
+    },
+
+    newBoard: function (dictTitle, callback) {
+        this._api_post('/new-board', dictTitle);
+        callback()
+
+
     }
 };

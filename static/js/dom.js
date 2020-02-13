@@ -80,7 +80,7 @@ function createHeader(board) {
     span.addEventListener("click", (event) => {
         event.preventDefault();
         let reTitle = prompt("type new title");
-        console.log(reTitle)
+
         span.innerHTML = reTitle;
         let dictTitle = {
             "id" : board.id,
@@ -155,6 +155,7 @@ function setSaveButton() {
     sButton.addEventListener("click", () => {
         // event.preventDefault();
         let newTitle = document.getElementById("new-board-title").value;
+        console.log(newTitle)
         // let pub = document.getElementById("check-board-public");
 
         // let object = { "title": newTitle, "public"= }
