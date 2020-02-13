@@ -13,18 +13,6 @@ def index():
     """
     This is a one-pager which shows all the boards and cards
     """
-    if request.method == 'POST':
-        number_of_columns = 2
-        board_title = request.form.get('board-title')
-        public = request.form.get('public')
-        if public is None:
-            public = False
-        else:
-            public = True
-        data_manager.add_new_board(board_title, public)
-        new_board_id = data_manager.get_new_board_id()
-        for _ in range(number_of_columns):
-            data_manager.add_new_board_status(new_board_id)
 
     return render_template('index.html')
 
@@ -53,16 +41,16 @@ def get_cards_by_statuses(board_id: int, status_id: int):
     return data_manager.get_cards_by_statuses(board_id, status_id)
 
 
-@app.route('/register', methods=['GET', 'POST'])
+@app.route('/register')
 def register_user():
-    if request.method == 'POST':
-        username = request.form.get('username')
-        password = request.form.get('password')
-        hashed = hashing.hash_password(password)
-        data_manager.get_user_registration_data(username, hashed)
-        session['username'] = request.form['username']
-        session['id'] = data_manager.get_user_id(username)
-        return redirect('/')
+    # if request.method == 'POST':
+    #     username = request.form.get('username')
+    #     password = request.form.get('password')
+    #     hashed = hashing.hash_password(password)
+    #     data_manager.get_user_registration_data(username, hashed)
+    #     session['username'] = request.form['username']
+    #     session['id'] = data_manager.get_user_id(username)
+    #     return redirect('/')
     return render_template('index.html')
 
 
@@ -83,6 +71,19 @@ def login_user():
 def logout():
     session.clear()
     return redirect('/')
+
+
+@app.route('/new-board', methods=["POST"])
+@json_response
+def new_board():
+    board_title = request.get_json()
+    number_of_columns = 2
+    print(board_title)
+    # data_manager.add_new_board(board_title)
+    # new_board_id = data_manager.get_new_board_id()
+    # for _ in range(number_of_columns):
+    #     data_manager.add_new_board_status(new_board_id)
+    return {}
 
 
 def main():

@@ -4,7 +4,8 @@ import {dataHandler} from "./data_handler.js";
 export let dom = {
     init: function () {
         // This function should run once, when the page is loaded.
-        addNewPublicBoard()
+        addNewPublicBoard();
+        setSaveButton()
     },
     loadBoards: function () {
         fetch('/get-boards')
@@ -23,7 +24,6 @@ function createBoard(board) {
     section.setAttribute("class", "board");
     let container = document.querySelector(".board-container");
     let header = createHeader(board);
-    console.log(board.visibility);
     section.appendChild(header);
     container.appendChild(section);
 
@@ -110,10 +110,12 @@ function createAddCardButton() {
 
 function addNewPublicBoard() {
     document.getElementById('add-public-board').addEventListener('click', function () {
+
         const modal = document.querySelector('.modal');
+
+
         const closeButton = document.getElementById('closeButton');
         modal.style.display = 'block';
-
         closeButton.addEventListener('click', function () {
             modal.style.display = 'none';
         });
@@ -121,6 +123,29 @@ function addNewPublicBoard() {
             if (event.target === modal) {
                 modal.style.display = 'none';
             }
-        });
-    })
+            let doc = document.querySelectorAll("#board-title").value;
+
+
+        })
+
+    });
+
 }
+
+
+function setSaveButton() {
+    let sButton = document.getElementById("save-public-board");
+
+    sButton.addEventListener("click", () => {
+        let newTitle = document.getElementById("new-board-title").value;
+        let pub= document.getElementById("check-board-public");
+        dataHandler.newBoard(newTitle, function () {
+
+
+        })
+    })
+
+}
+
+
+
