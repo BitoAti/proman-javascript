@@ -43,6 +43,12 @@ function createBody(board, statuses) {
         column.setAttribute("class", "board-column");
         let title = document.createElement("div");
         title.setAttribute("class", "board-column-title");
+        title.addEventListener("click",() => {
+            let newColumnTitle = prompt('Please enter a new title')
+            if (newColumnTitle !== null) {
+                title.innerText = newColumnTitle
+            }
+        });
         let content = document.createElement("div");
         content.setAttribute("class", "board-column-content");
         title.innerText = status.title;
