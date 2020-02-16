@@ -93,9 +93,11 @@ ALTER TABLE board_statuses ALTER COLUMN status_id
 SET DEFAULT 0;
 
 INSERT INTO board
-VALUES (1, 'Board 1', TRUE, NULL);
+(title, public, user_id)
+VALUES ('Board 1', TRUE, NULL);
 INSERT INTO board
-VALUES (2, 'Board 2', TRUE, NULL);
+(title, public, user_id)
+VALUES ('Board 2', TRUE, NULL);
 
 INSERT INTO status
 VALUES (0, 'choose name');

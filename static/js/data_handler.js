@@ -23,7 +23,6 @@ export let dataHandler = {
         fetch(url, {
             method: 'POST',
             body: JSON.stringify(data),
-
             credentials: 'same-origin',
             headers: {
                 'Content-Type': 'application/json'
@@ -48,6 +47,7 @@ export let dataHandler = {
 
         });
     },
+
     getBoard: function (boardId, callback) {
         // the board is retrieved and then the callback function is called with the board
     },
@@ -88,5 +88,6 @@ export let dataHandler = {
         callback()
 
 
-    }
+    },
+
 };
