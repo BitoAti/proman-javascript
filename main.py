@@ -78,7 +78,6 @@ def logout():
 def new_board():
     board_title = request.get_json()
     number_of_columns = 2
-    print(board_title)
     data_manager.add_new_board(board_title)
     new_board_id = data_manager.get_new_board_id()
     for _ in range(number_of_columns):
@@ -89,11 +88,16 @@ def new_board():
 @app.route('/rename-board', methods=['POST'])
 @json_response
 def rename_board():
-
     new_title = request.get_json()
-    print(new_title)
     data_manager.update_title(new_title['title'], new_title['id'])
+    return {}
 
+
+@app.route('/delete-board', methods=['POST'])
+@json_response
+def delete_board():
+    board_to_delete = request.get_json()
+    data_manager.delete_board(board_to_delete)
     return {}
 
 
@@ -112,11 +116,7 @@ def main():
 
     # Serving the favicon
     with app.app_context():
-
         app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
-
-
-
 
 
 if __name__ == '__main__':

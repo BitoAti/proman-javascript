@@ -89,5 +89,8 @@ export let dataHandler = {
         callback()
 
 
+    },
+    deleteBoard: function(board_id) {
+        this._api_post('delete-board', board_id);
     }
 };

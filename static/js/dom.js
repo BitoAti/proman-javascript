@@ -45,7 +45,7 @@ function createBody(board, statuses) {
         let title = document.createElement("div");
         title.setAttribute("class", "board-column-title");
         title.addEventListener("click", () => {
-            let newColumnTitle = prompt('Please enter a new title')
+            let newColumnTitle = prompt('Please enter a new title');
             if (newColumnTitle !== null) {
                 title.innerText = newColumnTitle
             }
@@ -75,9 +75,9 @@ function createBody(board, statuses) {
 function createHeader(board) {
     let span = document.createElement("span");
     span.setAttribute("class", "board-title");
-
     let toggleButton = createTrashButton(board.id);
     let addButton = createAddCardButton(board.id);
+    let delButton = deleteButton(board.id);
     let headerDiv = document.createElement("div");
     headerDiv.setAttribute("class", "board-header");
     span.innerHTML = board.title;
@@ -101,12 +101,13 @@ function createHeader(board) {
     headerDiv.appendChild(span);
     headerDiv.appendChild(toggleButton);
     headerDiv.appendChild(addButton);
+    headerDiv.appendChild(delButton);
     return headerDiv
 }
 
 
 function createTrashButton(id) {
-    let i = document.createElement("i");
+    let i = document.createElement("span");
     i.setAttribute("class", "fas fa-chevron-down");
 
     let toggleButton = document.createElement("button");
@@ -157,7 +158,7 @@ function setSaveButton() {
     sButton.addEventListener("click", () => {
         // event.preventDefault();
         let newTitle = document.getElementById("new-board-title").value;
-        console.log(newTitle)
+        console.log(newTitle);
         // let pub = document.getElementById("check-board-public");
 
         // let object = { "title": newTitle, "public"= }
@@ -167,6 +168,18 @@ function setSaveButton() {
         })
     })
 
+}
+
+
+function deleteButton(id) {
+    let deleteButton = document.createElement('button');
+    deleteButton.setAttribute('class', 'delete-button');
+    deleteButton.textContent = "Delete board";
+    deleteButton.addEventListener('click', (event) =>{
+        event.preventDefault();
+        dataHandler.deleteBoard(id);
+    });
+    return deleteButton
 }
 
 // function newTable(title) {
