@@ -97,6 +97,14 @@ def rename_board():
     return {}
 
 
+@app.route('/add-card', methods=['POST'])
+@json_response
+def add_new_card():
+    board_id = request.get_json()
+    data_manager.add_new_card(board_id)
+    print(board_id)
+
+    return {}
 
 
 def main():

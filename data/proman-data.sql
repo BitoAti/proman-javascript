@@ -92,10 +92,10 @@ SET DEFAULT TRUE;
 ALTER TABLE board_statuses ALTER COLUMN status_id
 SET DEFAULT 0;
 
-INSERT INTO board
-VALUES (1, 'Board 1', TRUE, NULL);
-INSERT INTO board
-VALUES (2, 'Board 2', TRUE, NULL);
+INSERT INTO board (title, public)
+VALUES ('Board 1', TRUE);
+INSERT INTO board (title, public)
+VALUES ('Board 2', TRUE);
 
 INSERT INTO status
 VALUES (0, 'choose name');
@@ -126,30 +126,30 @@ VALUES (2, 3);
 INSERT INTO board_statuses
 VALUES (2, 4);
 
-INSERT INTO card
-VALUES (1, 1, 'new card 1', 1, 0);
-INSERT INTO card
-VALUES (2, 1, 'new card 2', 1, 1);
-INSERT INTO card
-VALUES (3, 1, 'in progress card', 2, 0);
-INSERT INTO card
-VALUES (4, 1, 'planning', 3, 0);
-INSERT INTO card
-VALUES (5, 1, 'done card 1', 4, 0);
-INSERT INTO card
-VALUES (6, 1, 'done card 1', 4, 1);
-INSERT INTO card
-VALUES (7, 2, 'new card 1', 1, 0);
-INSERT INTO card
-VALUES (8, 2, 'new card 2', 1, 1);
-INSERT INTO card
-VALUES (9, 2, 'in progress card', 2, 0);
-INSERT INTO card
-VALUES (10, 2, 'planning', 3, 0);
-INSERT INTO card
-VALUES (11, 2, 'done card 1', 4, 0);
-INSERT INTO card
-VALUES (12, 2, 'done card 1', 4, 1);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (1, 'new card 1', 1, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (1, 'new card 2', 1, 1);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (1, 'in progress card', 2, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (1, 'planning', 3, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (1, 'done card 1', 4, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (1, 'done card 1', 4, 1);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (2, 'new card 1', 1, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (2, 'new card 2', 1, 1);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (2, 'in progress card', 2, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (2, 'planning', 3, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (2, 'done card 1', 4, 0);
+INSERT INTO card (board_id, title, status_id, card_order)
+VALUES (2, 'done card 1', 4, 1);
 
 
 

@@ -44,14 +44,12 @@ function createBody(board, statuses) {
         column.setAttribute("class", "board-column");
         let title = document.createElement("div");
         title.setAttribute("class", "board-column-title");
-        title.addEventListener("click",() => {
+        title.addEventListener("click", () => {
             let newColumnTitle = prompt('Please enter a new title')
             if (newColumnTitle !== null) {
                 title.innerText = newColumnTitle
             }
         });
-        let content = document.createElement("div");
-        content.setAttribute("class", "board-column-content");
         title.innerText = status.title;
         column.appendChild(title);
         fetch(`/get-cards-by-statuses/${board.id}/${status.status_id}`)
@@ -61,10 +59,9 @@ function createBody(board, statuses) {
                     let cardForTable = document.createElement("div");
                     cardForTable.setAttribute("class", "card");
                     cardForTable.innerText = card.title;
-                    content.appendChild(cardForTable)
+                    column.appendChild(cardForTable)
                 }
             });
-        column.appendChild(content);
         columns.appendChild(column);
         columns.setAttribute("id", `${board.id}`)
 
@@ -80,7 +77,7 @@ function createHeader(board) {
     span.setAttribute("class", "board-title");
 
     let toggleButton = createTrashButton(board.id);
-    let addButton = createAddCardButton();
+    let addButton = createAddCardButton(board.id);
     let headerDiv = document.createElement("div");
     headerDiv.setAttribute("class", "board-header");
     span.innerHTML = board.title;
@@ -90,17 +87,14 @@ function createHeader(board) {
 
         span.innerHTML = reTitle;
         let dictTitle = {
-            "id" : board.id,
-            "title" : reTitle
+            "id": board.id,
+            "title": reTitle
         };
 
-        dataHandler.renameBoard(dictTitle, function() {
+        dataHandler.renameBoard(dictTitle, function () {
 
             }
-
-
         );
-
 
 
     });
@@ -128,9 +122,10 @@ function createTrashButton(id) {
     return toggleButton
 }
 
-function createAddCardButton() {
+function createAddCardButton(id) {
     let addButton = document.createElement("button");
     addButton.setAttribute("class", "card-add");
+    addButton.setAttribute("data-id", `${id}`);
     addButton.innerText = "Add card";
     return addButton
 
@@ -202,10 +197,12 @@ function addNewCard() {
     const addCardButtons = document.querySelectorAll('.card-add');
     for (let addCardButton of addCardButtons) {
         addCardButton.addEventListener('click', function () {
+            const boardId = addCardButton.dataset.id;
             const div = document.createElement("div");
             div.setAttribute('class', 'card');
             div.innerHTML = "<div class='card-title'>Click to rename!</div>";
             this.parentElement.nextElementSibling.firstElementChild.append(div);
+            dataHandler.createNewCard(boardId)
         });
     }
 

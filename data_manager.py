@@ -119,3 +119,14 @@ def add_new_board_status(cursor, board_id):
                    {
                        'board_id': board_id
                    })
+
+
+@database_common.connection_handler
+def add_new_card(cursor, board_id):
+    cursor.execute('''
+    INSERT INTO card (board_id, title, status_id)
+    VALUES (%(board_id)s, 'Click to rename!', 1);
+    ''',
+                   {
+                       'board_id': board_id
+                   })
