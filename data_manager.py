@@ -124,3 +124,11 @@ def add_new_board_status(cursor, board_id):
                    {
                        'board_id': board_id
                    })
+
+
+@database_common.connection_handler
+def delete_board(cursor, board_id):
+    cursor.execute('''
+        DELETE FROM board
+        WHERE board.id = %(board_id)s
+    ''', {'board_id': board_id})
