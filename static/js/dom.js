@@ -14,6 +14,7 @@ export let dom = {
                     for (let board of boards) {
                         createBoard(board);
                     }
+                    addNewCard();
                 }
             )
     }
@@ -129,7 +130,7 @@ function createTrashButton(id) {
 
 function createAddCardButton() {
     let addButton = document.createElement("button");
-    addButton.setAttribute("class", "board-add");
+    addButton.setAttribute("class", "card-add");
     addButton.innerText = "Add card";
     return addButton
 
@@ -195,3 +196,17 @@ function setSaveButton() {
 //     console.log(headerDiv);
 //     return headerDiv
 // }
+
+
+function addNewCard() {
+    const addCardButtons = document.querySelectorAll('.card-add');
+    for (let addCardButton of addCardButtons) {
+        addCardButton.addEventListener('click', function () {
+            const div = document.createElement("div");
+            div.setAttribute('class', 'card');
+            div.innerHTML = "<div class='card-title'>Click to rename!</div>";
+            this.parentElement.nextElementSibling.firstElementChild.append(div);
+        });
+    }
+
+}
