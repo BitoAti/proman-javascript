@@ -89,7 +89,6 @@ def new_board():
 @app.route('/rename-board', methods=['POST'])
 @json_response
 def rename_board():
-
     new_title = request.get_json()
     print(new_title)
     data_manager.update_title(new_title['title'], new_title['id'])
@@ -97,18 +96,12 @@ def rename_board():
     return {}
 
 
-
-
 def main():
     app.run(debug=True)
 
     # Serving the favicon
     with app.app_context():
-
         app.add_url_rule('/favicon.ico', redirect_to=url_for('static', filename='favicon/favicon.ico'))
-
-
-
 
 
 if __name__ == '__main__':

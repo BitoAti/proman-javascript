@@ -43,7 +43,7 @@ function createBody(board, statuses) {
         column.setAttribute("class", "board-column");
         let title = document.createElement("div");
         title.setAttribute("class", "board-column-title");
-        title.addEventListener("click",() => {
+        title.addEventListener("click", () => {
             let newColumnTitle = prompt('Please enter a new title')
             if (newColumnTitle !== null) {
                 title.innerText = newColumnTitle
@@ -89,17 +89,14 @@ function createHeader(board) {
 
         span.innerHTML = reTitle;
         let dictTitle = {
-            "id" : board.id,
-            "title" : reTitle
+            "id": board.id,
+            "title": reTitle
         };
 
-        dataHandler.renameBoard(dictTitle, function() {
+        dataHandler.renameBoard(dictTitle, function () {
 
             }
-
-
         );
-
 
 
     });

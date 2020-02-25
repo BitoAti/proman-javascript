@@ -22,7 +22,6 @@ def get_cards_for_board(cursor, id_):
     return cards
 
 
-
 @database_common.connection_handler
 def get_board_statuses(cursor, board_id):
     cursor.execute('''
@@ -58,6 +57,7 @@ def get_user_registration_data(cursor, username, hashed):
                    {'username': username,
                     'hashed': hashed})
 
+
 @database_common.connection_handler
 def add_new_board(cursor, board_title):
     cursor.execute('''
@@ -80,6 +80,8 @@ def get_user_login_data(cursor, username):
                    {'username': username})
     crypted_password = cursor.fetchone()
     return crypted_password
+
+
 @database_common.connection_handler
 def get_new_board_id(cursor):
     cursor.execute('''
@@ -98,6 +100,8 @@ def update_title(cursor, retitle, boardid):
         "retitle": retitle,
         "boardid": boardid
     })
+
+
 # get user id to registration
 @database_common.connection_handler
 def get_user_id(cursor, username):
@@ -109,6 +113,7 @@ def get_user_id(cursor, username):
                    {'username': username})
     user_id = cursor.fetchone()
     return user_id['id']
+
 
 @database_common.connection_handler
 def add_new_board_status(cursor, board_id):
