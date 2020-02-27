@@ -32,6 +32,7 @@ function createBoard(board) {
         .then((response) => response.json())
         .then((statuses) => {
             let body = createBody(board, statuses);
+            body.classList.add("board-columns-close");
             section.appendChild(body);
         });
 }
@@ -58,14 +59,17 @@ function createBody(board, statuses) {
                 for (let card of cards) {
                     let cardForTable = document.createElement("div");
                     cardForTable.setAttribute("class", "card");
-                    // cardForTable.setAttribute('data', `${card.id}`);
                     cardForTable.innerText = card.title;
-                    cardForTable.addEventListener('click', function () {
-                        cardForTable.innerText = prompt("type new title");
-                        let cardDetails = {'id': card.id, 'title': cardForTable.innerText};
-                        dataHandler._api_post('/rename-card', cardDetails)
-                    });
                     column.appendChild(cardForTable);
+                    cardForTable.addEventListener('mouseup', (event) => {
+                        if (event.button === 1) {
+                            dataHandler.deleteCard({'id': card.id}, dom.loadBoards());
+                        } else {
+                            cardForTable.innerText = prompt("type new title");
+                            let cardDetails = {'id': card.id, 'title': cardForTable.innerText};
+                            dataHandler.renameCard(cardDetails, dom.loadBoards())
+                        }
+                    });
                 }
             });
         columns.appendChild(column);
@@ -73,8 +77,6 @@ function createBody(board, statuses) {
 
     }
     return columns
-
-
 }
 
 
@@ -98,11 +100,8 @@ function createHeader(board) {
         };
 
         dataHandler.renameBoard(dictTitle, function () {
-
             }
         );
-
-
     });
     headerDiv.appendChild(span);
     headerDiv.appendChild(toggleButton);
@@ -115,15 +114,11 @@ function createHeader(board) {
 function createTrashButton(id) {
     let i = document.createElement("span");
     i.setAttribute("class", "fas fa-chevron-down");
-
     let toggleButton = document.createElement("button");
     toggleButton.setAttribute("class", "board-toggle");
     toggleButton.addEventListener("click", () => {
-
         let body = document.getElementById(`${id}`);
         body.classList.toggle("board-columns-close")
-
-
     });
     toggleButton.appendChild(i);
     return toggleButton
@@ -155,14 +150,11 @@ function addNewPublicBoard() {
         })
 
     });
-
 }
 
 function setSaveButton() {
     let sButton = document.getElementById("save-public-board");
-
     sButton.addEventListener("click", () => {
-        // event.preventDefault();
         let newTitle = document.getElementById("new-board-title").value;
         console.log(newTitle);
         // let pub = document.getElementById("check-board-public");
@@ -173,7 +165,6 @@ function setSaveButton() {
             // dom.loadBoards()
         })
     })
-
 }
 
 
@@ -182,34 +173,11 @@ function deleteButton(id) {
     deleteButton.setAttribute('class', 'delete-button');
     deleteButton.textContent = "Delete board";
     deleteButton.addEventListener('click', (event) => {
-        event.preventDefault();
-        dataHandler.deleteBoard(id);
+        // event.preventDefault();
+        dataHandler.deleteBoard(id, dom.loadBoards());
     });
     return deleteButton
 }
-
-// function newTable(title) {
-//     let container = document.querySelector(".board-container");
-//     let section = document.createElement("section");
-//     section.setAttribute("class", "board");
-//     section.appendChild(createNewHeader(title));
-//     container.appendChild(section)
-// }
-//
-// function createNewHeader(title) {
-//     let span = document.createElement("span");
-//     span.setAttribute("class", "board-title");
-//     let toggleButton = createTrashButton(board.id);
-//     let addButton = createAddCardButton();
-//     let headerDiv = document.createElement("div");
-//     headerDiv.setAttribute("class", "board-header");
-//     span.innerHTML = title;
-//     headerDiv.appendChild(span);
-//     headerDiv.appendChild(toggleButton);
-//     headerDiv.appendChild(addButton);
-//     console.log(headerDiv);
-//     return headerDiv
-// }
 
 
 function addNewCard() {
@@ -221,18 +189,8 @@ function addNewCard() {
             div.setAttribute('class', 'card');
             div.innerHTML = "<div class='card-title'>Click to rename!</div>";
             this.parentElement.nextElementSibling.firstElementChild.append(div);
-            dataHandler.createNewCard(boardId)
+            dataHandler.createNewCard({'boardId': boardId}, dom.loadBoards())
         });
     }
 
-}
-
-function renameCard() {
-    const cardTitles = document.querySelectorAll('.card');
-    for (let cardTitle of cardTitles) {
-        cardTitle.addEventListener('click', function () {
-            let newTitle = prompt("type new title");
-            console.log('click')
-        })
-    }
 }

@@ -133,6 +133,7 @@ def delete_board(cursor, board_id):
         WHERE board.id = %(board_id)s
     ''', {'board_id': board_id})
 
+
 @database_common.connection_handler
 def add_new_card(cursor, board_id):
     cursor.execute('''
@@ -155,3 +156,10 @@ def rename_card(cursor, card_id, card_title):
                        'card_id': card_id,
                        'card_title': card_title
                    })
+
+
+@database_common.connection_handler
+def deletecard(cursor, card_to_delete):
+    cursor.execute(''' DELETE from card 
+    WHERE id = %(card_to_delete)s
+    ''', {'card_to_delete': card_to_delete})

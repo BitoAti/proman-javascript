@@ -72,9 +72,10 @@ export let dataHandler = {
     createNewBoard: function (boardTitle, callback) {
         // creates new board, saves it and calls the callback function with its data
     },
-    createNewCard: function (boardId) {
-        // creates new card, saves it and calls the callback function with its data
+    createNewCard: function (boardId, callback) {
+        document.querySelector('.board-container').innerHTML = '';
         this._api_post('/add-card', boardId);
+        callback()
     },
     // here comes more features
     renameBoard: function (dictTitle, callback) {
@@ -85,12 +86,28 @@ export let dataHandler = {
     },
 
     newBoard: function (dictTitle, callback) {
+        document.querySelector('.board-container').innerHTML = '';
         this._api_post('/new-board', dictTitle);
         callback()
 
 
     },
-    deleteBoard: function(board_id) {
+    deleteBoard: function (board_id, callback) {
+        document.querySelector('.board-container').innerHTML = '';
         this._api_post('delete-board', board_id);
+        callback()
+    },
+
+    deleteCard: function (card_id, callback) {
+        document.querySelector('.board-container').innerHTML = '';
+        this._api_post('delete-card', card_id);
+        callback()
+    },
+
+    renameCard: function (card_details, callback) {
+        document.querySelector('.board-container').innerHTML = '';
+        this._api_post('rename-card', card_details);
+        callback()
     }
+
 };
