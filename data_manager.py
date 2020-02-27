@@ -142,3 +142,8 @@ def add_new_card(cursor, board_id):
                    {
                        'board_id': board_id
                    })
+
+@database_common.connection_handler
+def deletecard(cursor, card_to_delete):
+    cursor.execute('''SELECT
+    ''')

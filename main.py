@@ -111,6 +111,14 @@ def add_new_card():
     return {}
 
 
+@app.route('/delete-card', methods= ['POST'])
+@json_response
+def delete_card():
+    card_to_delete = request.get_json()
+    data_manager.deletecard(card_to_delete)
+    return {}
+
+
 def main():
     app.run(debug=True)
 
