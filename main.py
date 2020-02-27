@@ -106,8 +106,16 @@ def delete_board():
 def add_new_card():
     board_id = request.get_json()
     data_manager.add_new_card(board_id)
-    print(board_id)
+    return {}
 
+
+@app.route('/rename-card', methods=['POST'])
+@json_response
+def rename_card():
+    card_details = request.get_json()
+    card_id = card_details['id']
+    card_title = card_details['title']
+    data_manager.rename_card(card_id, card_title)
     return {}
 
 

@@ -142,3 +142,16 @@ def add_new_card(cursor, board_id):
                    {
                        'board_id': board_id
                    })
+
+
+@database_common.connection_handler
+def rename_card(cursor, card_id, card_title):
+    cursor.execute('''
+        UPDATE card
+        SET title = %(card_title)s
+        WHERE id = %(card_id)s;
+        ''',
+                   {
+                       'card_id': card_id,
+                       'card_title': card_title
+                   })
