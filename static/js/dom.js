@@ -58,8 +58,18 @@ function createBody(board, statuses) {
                 for (let card of cards) {
                     let cardForTable = document.createElement("div");
                     cardForTable.setAttribute("class", "card");
+                    cardForTable.setAttribute('data', `${card.id}`);
                     cardForTable.innerText = card.title;
-                    column.appendChild(cardForTable)
+                    column.appendChild(cardForTable);
+                    cardForTable.addEventListener('dblclick', (event) => {
+                        dataHandler._api_post('/delete-card', {'id': card.id})
+                    });
+                    cardForTable.addEventListener('click', () => {
+                        cardForTable.innerText = prompt('type new title');
+                        let cardDetails = {'id': card.id, 'title': cardForTable.innerText};
+                        dataHandler._api_post('/rename-card', cardDetails);
+                    })
+
                 }
             });
         columns.appendChild(column);
@@ -175,9 +185,10 @@ function deleteButton(id) {
     let deleteButton = document.createElement('button');
     deleteButton.setAttribute('class', 'delete-button');
     deleteButton.textContent = "Delete board";
-    deleteButton.addEventListener('click', (event) =>{
-        event.preventDefault();
-        dataHandler.deleteBoard(id);
+    deleteButton.addEventListener('click', (event) => {
+
+        dataHandler.deleteBoard(id, dom.loadBoards());
+
     });
     return deleteButton
 }
@@ -206,7 +217,7 @@ function deleteButton(id) {
 // }
 
 
-function addNewCard() {
+function addNewCard(event) {
     const addCardButtons = document.querySelectorAll('.card-add');
     for (let addCardButton of addCardButtons) {
         addCardButton.addEventListener('click', function () {
@@ -220,4 +231,6 @@ function addNewCard() {
     }
 
 }
+
+
 

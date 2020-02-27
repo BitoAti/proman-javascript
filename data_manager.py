@@ -145,5 +145,12 @@ def add_new_card(cursor, board_id):
 
 @database_common.connection_handler
 def deletecard(cursor, card_to_delete):
-    cursor.execute('''SELECT
-    ''')
+    cursor.execute(''' DELETE from card 
+    WHERE id = %(card_to_delete)s
+    ''', {'card_to_delete': card_to_delete})
+
+@database_common.connection_handler
+def rename_cards(cursor, card_id, card_title):
+    cursor.execute('''UPDATE card SET title = %(card_title)s
+    WHERE id = %(card_id)s
+    ''', {'card_id': card_id, 'card_title': card_title})

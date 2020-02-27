@@ -115,8 +115,22 @@ def add_new_card():
 @json_response
 def delete_card():
     card_to_delete = request.get_json()
-    data_manager.deletecard(card_to_delete)
+    data_manager.deletecard(card_to_delete['id'])
     return {}
+
+
+
+@app.route('/rename-card', methods= ['POST'])
+@json_response
+def rename_card():
+    new_card_details = request.get_json()
+    card_id = new_card_details['id']
+    card_title = new_card_details['title']
+    data_manager.rename_cards(card_id, card_title)
+    return {}
+
+
+
 
 
 def main():

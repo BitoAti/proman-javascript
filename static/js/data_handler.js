@@ -90,7 +90,9 @@ export let dataHandler = {
 
 
     },
-    deleteBoard: function(board_id) {
+    deleteBoard: function (board_id, callback) {
+        document.querySelector('.board-container').innerHTML = '';
         this._api_post('delete-board', board_id);
+        callback()
     }
 };
