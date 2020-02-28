@@ -61,10 +61,10 @@ function createBody(board, statuses) {
                     cardForTable.setAttribute('data', `${card.id}`);
                     cardForTable.innerText = card.title;
                     column.appendChild(cardForTable);
-                    cardForTable.addEventListener('dblclick', (event) => {
+                    cardForTable.addEventListener('click', (event) => {
                         dataHandler._api_post('/delete-card', {'id': card.id})
                     });
-                    cardForTable.addEventListener('click', () => {
+                    cardForTable.addEventListener('dblclick', () => {
                         cardForTable.innerText = prompt('type new title');
                         let cardDetails = {'id': card.id, 'title': cardForTable.innerText};
                         dataHandler._api_post('/rename-card', cardDetails);
